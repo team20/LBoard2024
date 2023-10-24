@@ -15,6 +15,7 @@ import frc.robot.commands.LEDs.LEDCommand;
 import frc.robot.commands.arm.ManualMotorCommand;
 import frc.robot.subsystems.ArduinoSubsystem;
 import frc.robot.subsystems.ArduinoSubsystem.StatusCode;
+import frc.robot.util.CommandComposer;
 import frc.robot.subsystems.ArmSubsystem;
 
 public class RobotContainer {
@@ -75,7 +76,7 @@ public class RobotContainer {
 
 	// TODO get auto command from auto chooser
 	public Command getAutonomousCommand() {
-		// return new BalancePIDCommand();
-		return m_autoChooser.getSelected();
+		return CommandComposer.getHighArmAuto();
+		// return m_autoChooser.getSelected();
 	}
 }
