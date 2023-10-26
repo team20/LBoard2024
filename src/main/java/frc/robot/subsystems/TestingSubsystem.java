@@ -42,14 +42,14 @@ public class TestingSubsystem extends SubsystemBase {
 		}
 		s_subsystem = this;
 		m_topMotor.restoreFactoryDefaults();
-		m_topMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+		m_topMotor.setIdleMode(/* TODO: What could be here...? */);
 		m_topMotor.enableVoltageCompensation(12);
-		m_topMotor.setSmartCurrentLimit(LeftConstants.kSmartCurrentLimit);
+		m_topMotor.setSmartCurrentLimit(/* TODO: What could be here...? */);
 
 		m_bottomMotor.restoreFactoryDefaults();
-		m_bottomMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+		m_bottomMotor.setIdleMode(/* TODO: What could be here...? */);
 		m_bottomMotor.enableVoltageCompensation(12);
-		m_bottomMotor.setSmartCurrentLimit(LeftConstants.kSmartCurrentLimit);
+		m_bottomMotor.setSmartCurrentLimit(/* TODO: What could be here...? */);
 	}
 
 	@Override
