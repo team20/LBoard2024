@@ -15,6 +15,9 @@ import frc.robot.commands.arm.ArmScoreAutoCommand;
 import frc.robot.commands.arm.ArmScoreCommand;
 import frc.robot.commands.arm.ManualMotorCommand;
 import frc.robot.commands.arm.SpinMotor;
+import frc.robot.commands.testing.LessonTwo;
+import frc.robot.commands.testing.lessonTwo;
+import frc.robot.subsystems.testingSubsystem;
 import frc.robot.commands.arm.ArmScoreCommand.ArmPosition;
 import frc.robot.commands.util.DeferredCommand;
 import frc.robot.commands.util.DeferredCommandAuto;
@@ -34,4 +37,9 @@ public class CommandComposer {
 	public static Command getSpinMotorAuto() {
 		return new SpinMotor();
 	}
+
+	public static Command getLessonTwoAuto() {
+		return new LessonTwo();
+	}
+
 }

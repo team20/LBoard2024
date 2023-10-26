@@ -78,7 +78,9 @@ public class RobotContainer {
 
 	// TODO get auto command from auto chooser
 	public Command getAutonomousCommand() {
-		return CommandComposer.getSpinMotorAuto();
+		// return CommandComposer.getSpinMotorAuto();
+		return CommandComposer.getLessonTwoAuto();
 		// return m_autoChooser.getSelected();
 	}
+
 }
