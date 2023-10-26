@@ -8,7 +8,7 @@ import java.time.Duration;
 import java.time.Instant;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.LeftSubsystem;
 
 public class SpinMotor extends CommandBase {
 
@@ -17,14 +17,14 @@ public class SpinMotor extends CommandBase {
 	/** Creates a new SpinMotor. */
 	public SpinMotor() {
 		// Use addRequirements() here to declare subsystem dependencies.
-		addRequirements(ArmSubsystem.get());
+		addRequirements(LeftSubsystem.get());
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
 		m_startTime = Instant.now();
-		ArmSubsystem.get().setUpperArmMotorSpeed(0.1);
+		LeftSubsystem.get().setTopMotorSpeed(0.1);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
@@ -35,13 +35,13 @@ public class SpinMotor extends CommandBase {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		ArmSubsystem.get().setUpperArmMotorSpeed(0);
+		LeftSubsystem.get().setTopMotorSpeed(0);
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		if (Duration.between(m_startTime, Instant.now()).toMillis() > 250) {
+		if (Duration.between(m_startTime, Instant.now()).toMillis() > 10000) {
 			return true;
 		}
 		return false;

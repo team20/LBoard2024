@@ -23,10 +23,10 @@ import frc.robot.util.InverseKinematicsTool;
 public class ArmSubsystem extends SubsystemBase {
 	/** Stores the instance of the ArmSubsystem */
 	private static ArmSubsystem s_subsystem;
-	private final CANSparkMax m_lowerArmMotor = new CANSparkMax(3, MotorType.kBrushless);
+	private final CANSparkMax m_lowerArmMotor = new CANSparkMax(ArmConstants.kLowerMotorID, MotorType.kBrushless);
 	// private final CANSparkMax m_lowerArmMotor2 = new
 	// CANSparkMax(ArmConstants.kLowerMotor2ID, MotorType.kBrushless);
-	private final CANSparkMax m_upperArmMotor = new CANSparkMax(4, MotorType.kBrushless);
+	private final CANSparkMax m_upperArmMotor = new CANSparkMax(ArmConstants.kUpperMotorID, MotorType.kBrushless);
 
 	private final SparkMaxAbsoluteEncoder m_lowerArmEncoder = m_lowerArmMotor
 			.getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);
@@ -88,24 +88,6 @@ public class ArmSubsystem extends SubsystemBase {
 		// The lower arm doesn't need PID wrapping, it has a very specific range it
 		// moves in
 		m_lowerArmController.setPositionPIDWrappingEnabled(false);
-
-		// Initialize 2nd lower arm motor
-		// m_lowerArmMotor2.restoreFactoryDefaults();
-		// m_lowerArmMotor2.setInverted(ArmConstants.kLowerInvert);
-		// m_lowerArmMotor2.setIdleMode(CANSparkMax.IdleMode.kCoast);
-		// m_lowerArmMotor2.enableVoltageCompensation(12);
-		// m_lowerArmMotor2.setSmartCurrentLimit(ArmConstants.kSmartCurrentLimit);
-
-		// SparkMaxLimitSwitch forwardSwitch2 = m_lowerArmMotor2
-		// .getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-		// forwardSwitch2.enableLimitSwitch(false);
-		// SparkMaxLimitSwitch reverseSwitch2 = m_lowerArmMotor2
-		// .getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-		// reverseSwitch2.enableLimitSwitch(false);
-
-		// // Make the 2nd lower arm motor follow the first one
-		// // They point in opposite directions, so the 2nd motor needs to be inverted
-		// m_lowerArmMotor2.follow(m_lowerArmMotor, ArmConstants.kLowerArmMotor2Oppose);
 
 		// Initialize upper arm
 		m_upperArmMotor.restoreFactoryDefaults();

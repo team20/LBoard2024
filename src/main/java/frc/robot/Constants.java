@@ -133,8 +133,8 @@ public final class Constants {
 		 * 0 degrees in our zero position
 		 */
 		public static final double kUpperEncoderZeroOffset = 356.282;
-		public static final int kUpperMotorID = 4;
-		public static final int kLowerMotorID = 3;
+		public static final int kUpperMotorID = 8;
+		public static final int kLowerMotorID = 6;
 		// TODO evaluate current limits
 		public static final int kSmartCurrentLimit = 55;
 		/**
@@ -142,7 +142,6 @@ public final class Constants {
 		 * controls if the 2nd lower arm motor should spin in the opposite direction of
 		 * the 1st motor
 		 */
-		public static boolean kLowerArmMotor2Oppose = true;
 		// TODO PIDS
 		public static final double kLowerArmP = 0.06000;
 		public static final double kLowerArmI = 0.000;
@@ -164,6 +163,13 @@ public final class Constants {
 		public static final double kMaxOutputUpper = 1;
 		public static final double kLowerArmInvalidLowerBound = 40;
 		public static final double kLowerArmInvalidUpperBound = 120;
+	}
+
+	public static final class LeftConstants {
+		public static final int kTopMotorID = 4;
+		public static final int kBottomMotorID = 3;
+		// TODO evaluate current limits
+		public static final int kSmartCurrentLimit = 55;
 	}
 
 	public static final class ControllerConstants {
