@@ -8,10 +8,11 @@ import java.time.Duration;
 import java.time.Instant;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.TestingSubsystem;
 
 public class LessonTwo extends CommandBase {
-	
+
 	private Instant m_startTime;
 
 	/** Creates a new lessonTwo. */
@@ -25,6 +26,9 @@ public class LessonTwo extends CommandBase {
 	public void initialize() {
 		m_startTime = Instant.now();
 		// TODO: something needs to be here...
+		TestingSubsystem.get().setTopMotorSpeed(.1);
+		TestingSubsystem.get().setBottomMotorSpeed(.1);
+
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
@@ -35,7 +39,8 @@ public class LessonTwo extends CommandBase {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		// TODO: something also needs to be here...
+		TestingSubsystem.get().setTopMotorSpeed(0);
+		TestingSubsystem.get().setBottomMotorSpeed(0);
 	}
 
 	// Returns true when the command should end.

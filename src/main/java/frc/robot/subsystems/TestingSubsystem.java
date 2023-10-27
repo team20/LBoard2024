@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.SparkMaxPIDController;
@@ -21,6 +22,8 @@ import frc.robot.Constants.LeftConstants;
 public class TestingSubsystem extends SubsystemBase {
 	private static TestingSubsystem s_subsystem;
 	// TODO: 2 things need here... -> Objects
+	public final CANSparkMax m_topMotor = new CANSparkMax(LeftConstants.kTopMotorID, MotorType.kBrushless);
+	public final CANSparkMax m_bottomMotor = new CANSparkMax(LeftConstants.kBottomMotorID, MotorType.kBrushless);
 
 	/* Encoders are for another time...lets focus 1 at a time */
 	private final SparkMaxAbsoluteEncoder m_lowerArmEncoder = m_topMotor
@@ -35,21 +38,21 @@ public class TestingSubsystem extends SubsystemBase {
 	public TestingSubsystem() {
 		if (s_subsystem != null) {
 			try {
-				throw new Exception("Arm subsystem already initialized!");
+				throw new Exception("Testing subsystem already initialized!");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		s_subsystem = this;
 		m_topMotor.restoreFactoryDefaults();
-		m_topMotor.setIdleMode(/* TODO: What could be here...? */);
+		m_topMotor.setIdleMode(IdleMode.kBrake);
 		m_topMotor.enableVoltageCompensation(12);
-		m_topMotor.setSmartCurrentLimit(/* TODO: What could be here...? */);
+		m_topMotor.setSmartCurrentLimit(LeftConstants.kSmartCurrentLimit);
 
 		m_bottomMotor.restoreFactoryDefaults();
-		m_bottomMotor.setIdleMode(/* TODO: What could be here...? */);
+		m_bottomMotor.setIdleMode(IdleMode.kBrake);
 		m_bottomMotor.enableVoltageCompensation(12);
-		m_bottomMotor.setSmartCurrentLimit(/* TODO: What could be here...? */);
+		m_bottomMotor.setSmartCurrentLimit(LeftConstants.kSmartCurrentLimit);
 	}
 
 	@Override
@@ -62,4 +65,11 @@ public class TestingSubsystem extends SubsystemBase {
 	}
 
 	/* TODO: You are going to want 2 setters here for speed... */
+	public void setTopMotorSpeed(double speed) {
+		m_topMotor.set(speed);
+	}
+
+	public void setBottomMotorSpeed(double speed) {
+		m_bottomMotor.set(speed);
+	}
 }
