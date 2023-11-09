@@ -25,7 +25,6 @@ public class LessonTwo extends CommandBase {
 	@Override
 	public void initialize() {
 		m_startTime = Instant.now();
-		// TODO: something needs to be here...
 		TestingSubsystem.get().setTopMotorSpeed(.1);
 		TestingSubsystem.get().setBottomMotorSpeed(.1);
 

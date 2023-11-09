@@ -18,11 +18,13 @@ import frc.robot.subsystems.ArduinoSubsystem.StatusCode;
 import frc.robot.util.CommandComposer;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.LeftSubsystem;
+import frc.robot.subsystems.TestingSubsystem;
 
 public class RobotContainer {
 	// private DriveSubsystem m_driveSubsystem = new DriveSubsystem();
 	private ArmSubsystem m_armSubsystem = new ArmSubsystem();
 	private LeftSubsystem m_LeftSubsystem = new LeftSubsystem();
+	private TestingSubsystem m_TestingSubsystem = new TestingSubsystem();
 	// private WheelGripperSubsystem m_gripperSubsystem = new
 	// WheelGripperSubsystem();
 	private ArduinoSubsystem m_arduinoSubsystem = new ArduinoSubsystem();
