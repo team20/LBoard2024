@@ -8,7 +8,6 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
  * Used to delay command construction from robot startup(during
@@ -42,13 +41,16 @@ public class DeferredCommandAuto extends CommandBase {
 		m_command.initialize();
 	}
 
-
-	@Override public void end(boolean interrupted){
+	@Override
+	public void end(boolean interrupted) {
 		m_command.end(false);
 	}
-	@Override public void execute(){
+
+	@Override
+	public void execute() {
 		m_command.execute();
 	}
+
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {

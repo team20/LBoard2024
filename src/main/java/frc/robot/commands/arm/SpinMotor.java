@@ -24,7 +24,7 @@ public class SpinMotor extends CommandBase {
 	@Override
 	public void initialize() {
 		m_startTime = Instant.now();
-		LeftSubsystem.get().setTopMotorSpeed(0.1);
+		LeftSubsystem.get().setBottomMotorSpeed(0.1);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
@@ -35,7 +35,7 @@ public class SpinMotor extends CommandBase {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		LeftSubsystem.get().setTopMotorSpeed(0);
+		LeftSubsystem.get().setBottomMotorSpeed(0);
 	}
 
 	// Returns true when the command should end.

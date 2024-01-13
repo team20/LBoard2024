@@ -13,28 +13,27 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.LEDs.LEDCommand;
 import frc.robot.commands.arm.ManualMotorCommand;
-import frc.robot.subsystems.ArduinoSubsystem;
+// import frc.robot.subsystems.ArduinoSubsystem;
 import frc.robot.subsystems.ArduinoSubsystem.StatusCode;
 import frc.robot.util.CommandComposer;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.LeftSubsystem;
-import frc.robot.subsystems.TestingSubsystem;
 
 public class RobotContainer {
 	// private DriveSubsystem m_driveSubsystem = new DriveSubsystem();
 	private ArmSubsystem m_armSubsystem = new ArmSubsystem();
 	private LeftSubsystem m_LeftSubsystem = new LeftSubsystem();
-	private TestingSubsystem m_TestingSubsystem = new TestingSubsystem();
 	// private WheelGripperSubsystem m_gripperSubsystem = new
 	// WheelGripperSubsystem();
-	private ArduinoSubsystem m_arduinoSubsystem = new ArduinoSubsystem();
+	// private ArduinoSubsystem m_arduinoSubsystem = new ArduinoSubsystem();
 	// private AprilTagSubsystem m_aprilTagSubsystem = new AprilTagSubsystem();
 	// TODO: Hwang: check the scaling constant
 
 	/** The PS4 controller the operator uses */
 	// private final Joystick m_operatorController1 = new Joystick(0);
-	private final CommandPS4Controller m_operatorController = new CommandPS4Controller(
-			ControllerConstants.kOperatorControllerPort);
+	// private final CommandPS4Controller m_operatorController = new
+	// CommandPS4Controller(
+	// ControllerConstants.kOperatorControllerPort);
 	/** The PS4 controller the driver uses */
 	// private final Joystick m_driverController = new
 	// Joystick(ControllerConstants.kDriverControllerPort);
@@ -80,8 +79,7 @@ public class RobotContainer {
 
 	// TODO get auto command from auto chooser
 	public Command getAutonomousCommand() {
-		// return CommandComposer.getSpinMotorAuto();
-		return CommandComposer.getLessonTwoAuto();
+		return CommandComposer.getSpinMotorAuto();
 		// return m_autoChooser.getSelected();
 	}
 

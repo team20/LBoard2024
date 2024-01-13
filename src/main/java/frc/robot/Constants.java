@@ -1,8 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.SPI;
-
 public final class Constants {
 	public static final class ArduinoConstants {
 		/**
@@ -166,7 +163,6 @@ public final class Constants {
 	}
 
 	public static final class LeftConstants {
-		public static final int kTopMotorID = 4;
 		public static final int kBottomMotorID = 3;
 		// TODO evaluate current limits
 		public static final int kSmartCurrentLimit = 55;
