@@ -4,38 +4,16 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableListener;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.Constants.ControllerConstants;
-import frc.robot.commands.LEDs.LEDCommand;
-import frc.robot.commands.arm.ManualMotorCommand;
-import frc.robot.subsystems.ArduinoSubsystem;
-import frc.robot.subsystems.ArduinoSubsystem.StatusCode;
-import frc.robot.util.CommandComposer;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.LeftSubsystem;
 
 public class RobotContainer {
-	// private DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-	private ArmSubsystem m_armSubsystem = new ArmSubsystem();
-	private LeftSubsystem m_LeftSubsystem = new LeftSubsystem();
-	// private WheelGripperSubsystem m_gripperSubsystem = new
-	// WheelGripperSubsystem();
-	private ArduinoSubsystem m_arduinoSubsystem = new ArduinoSubsystem();
-	// private AprilTagSubsystem m_aprilTagSubsystem = new AprilTagSubsystem();
-	// TODO: Hwang: check the scaling constant
-
-	/** The PS4 controller the operator uses */
-	// private final Joystick m_operatorController1 = new Joystick(0);
-	private final CommandPS4Controller m_operatorController = new CommandPS4Controller(
-			ControllerConstants.kOperatorControllerPort);
-	/** The PS4 controller the driver uses */
-	// private final Joystick m_driverController = new
-	// Joystick(ControllerConstants.kDriverControllerPort);
 
 	private final CommandPS4Controller m_driverController1 = new CommandPS4Controller(0);
 	private final SendableChooser<Command> m_autoChooser = new SendableChooser<>();
@@ -57,30 +35,12 @@ public class RobotContainer {
 	}
 
 	private void configureButtonBindings() {
-		m_armSubsystem.setDefaultCommand(
-				new ManualMotorCommand(() -> -m_driverController1.getLeftY(), () -> -m_driverController1.getRightY()));
-		// -------------LED signaling-------------
-		// Signal for a cube
-		new POVButton(m_driverController1.getHID(), ControllerConstants.DPad.kLeft)
-				.onTrue(new LEDCommand(StatusCode.BLINKING_PURPLE));
 
-		// // Signal for a cone
-		new POVButton(m_driverController1.getHID(), ControllerConstants.DPad.kRight)
-				.onTrue(new LEDCommand(StatusCode.BLINKING_YELLOW));
-		new POVButton(m_driverController1.getHID(), ControllerConstants.DPad.kUp)
-				.onTrue(new LEDCommand(StatusCode.RAINBOW_PARTY_FUN_TIME));
-		new JoystickButton(m_driverController1.getHID(),
-				ControllerConstants.Button.kRightBumper)
-						.onTrue(new LEDCommand(StatusCode.DEFAULT));
-		new POVButton(m_driverController1.getHID(), ControllerConstants.DPad.kDown)
-				.onTrue(new LEDCommand(StatusCode.MOVING_GREEN_AND_BLUE_GRADIENT));
 	}
 
 	// TODO get auto command from auto chooser
 	public Command getAutonomousCommand() {
-		// return CommandComposer.getSpinMotorAuto();
-		return CommandComposer.getLessonTwoAuto();
-		// return m_autoChooser.getSelected();
+		return null;
 	}
 
 }
