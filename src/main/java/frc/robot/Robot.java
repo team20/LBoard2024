@@ -71,6 +71,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopPeriodic() {
+		ArduinoSubsystem.get().isMatchTime();
 	}
 
 	@Override
@@ -84,6 +85,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void testPeriodic() {
+		ArduinoSubsystem.get().isMatchTime();
 	}
 
 	@Override
