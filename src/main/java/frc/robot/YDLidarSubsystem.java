@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.DoubleSubscriber;
+import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -33,7 +35,5 @@ public class YDLidarSubsystem extends SubsystemBase {
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
-		NetworkTable table = NetworkTableInstance.getDefault().getTable("lidar");
-		NetworkTableEntry testing = table.getEntry("180");
 	}
 }

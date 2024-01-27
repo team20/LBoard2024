@@ -23,6 +23,7 @@ public class SpinMotor extends Command {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
+		System.out.println("INit");
 		m_startTime = Instant.now();
 		LeftSubsystem.get().setBottomMotorSpeed(0);
 	}
@@ -30,19 +31,21 @@ public class SpinMotor extends Command {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		//speeds the moter up for 5 seconds then slowes it down
-		if (Duration.between(m_startTime, Instant.now()).toMillis() < 5000) {
-			speedToTime = (Duration.between(m_startTime, Instant.now()).toMillis())/10000.0;
-		} else {
-			speedToTime = -(Duration.between(m_startTime, Instant.now()).toMillis()/10000.0)+1;
-		}
-		if(speedToTime>1){
-			speedToTime=1;
-		}else if(speedToTime<-1){
-			speedToTime=-1;
-		}
-		//System.out.println(speedToTime);      // for debuging
-		LeftSubsystem.get().setBottomMotorSpeed(speedToTime);
+		System.out.println("SpinMotor is Running");
+		// speeds the moter up for 5 seconds then slowes it down
+		LeftSubsystem.get().setBottomMotorSpeed(0.6);
+		// if (Duration.between(m_startTime, Instant.now()).toMillis() < 5000) {
+		// 	speedToTime = (Duration.between(m_startTime, Instant.now()).toMillis())/10000.0;
+		// } else {
+		// 	speedToTime = -(Duration.between(m_startTime, Instant.now()).toMillis()/10000.0)+1;
+		// }
+		// if(speedToTime>1){
+		// 	speedToTime=1;
+		// }else if(speedToTime<-1){
+		// 	speedToTime=-1;
+		// }
+		// System.out.println(speedToTime);      // for debuging
+		// LeftSubsystem.get().setBottomMotorSpeed(speedToTime);
 	}
 
 	// Called once the command ends or is interrupted.

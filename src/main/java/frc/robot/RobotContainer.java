@@ -4,16 +4,23 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.DoubleSubscriber;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
-import frc.robot.Constants.ControllerConstants.Axis;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
 	private final CommandGenericHID m_driverController = new CommandGenericHID(0);
 	private LeftSubsystem m_LeftSubsystem = new LeftSubsystem();
 	private ArduinoSubsystem m_ArduinoSubsystem = new ArduinoSubsystem();
+	private YDLidarSubsystem m_LidarSubsystem = new YDLidarSubsystem();
+	private DoubleSubscriber m_lidar = NetworkTableInstance.getDefault().getDoubleTopic("/SmartDashboard/180")
+			.subscribe(0);
 
 	private final SendableChooser<Command> m_autoChooser = new SendableChooser<>();
 
@@ -34,16 +41,18 @@ public class RobotContainer {
 	}
 
 	private void configureButtonBindings() {
+		new Trigger(() -> {
+			System.out.println(m_lidar.get());
+			return m_lidar.get() > 5.0;
+		}).onTrue(new SpinMotor());
 		// m_armSubsystem.setDefaultCommand(
 		// new ManualMotorCommand(() -> -m_driverController1.getLeftY(), () ->
 		// -m_driverController1.getRightY()));
-		m_LeftSubsystem.setDefaultCommand(new DefaultDriveCommand(m_LeftSubsystem, 
-			() -> m_driverController.getRawAxis(Axis.kLeftY)));
 	}
 
 	public Command getAutonomousCommand() {
-		return new SpinMotor();
-		// return m_autoChooser.getSelected();
+		// return new SpinMotor();
+		return m_autoChooser.getSelected();
 	}
 
 }
