@@ -43,6 +43,7 @@ public class RobotContainer {
 
 	public Command getAutonomousCommand() {
 		return new SpinMotor();
+		// return m_autoChooser.getSelected();
 	}
 
 }

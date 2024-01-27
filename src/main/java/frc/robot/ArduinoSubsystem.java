@@ -22,7 +22,7 @@ public class ArduinoSubsystem extends SubsystemBase {
 	public enum StatusCode {
 		RESET((byte) 8),
 		BLINKING_NOTE((byte) 9),
-		RAINBOW_PARTY_FUN_TIME((byte) 16),
+		RAINBOW_PARTY_FUN_TIME((byte) 10),
 		DEFAULT((byte) 20);
 
 		public byte code;
