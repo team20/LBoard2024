@@ -4,17 +4,18 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.DoubleArraySubscriber;
 import edu.wpi.first.networktables.DoubleSubscriber;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.units.Angle;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class YDLidarSubsystem extends SubsystemBase {
 	// NetworkTable m_lidar = NetworkTableInstance.getDefault().getTable("gwjrijgeni");
-	public DoubleSubscriber m_lidar = NetworkTableInstance.getDefault().getDoubleTopic("/SmartDashboard/180")
-			.subscribe(0);
+	public DoubleArraySubscriber m_lidar = NetworkTableInstance.getDefault().getDoubleArrayTopic("/SmartDashboard/distances").subscribe(new double[360]);
 	private static YDLidarSubsystem s_subsystem;
 
 	/** Creates a new YDLidarSubsystem. */
@@ -38,12 +39,8 @@ public class YDLidarSubsystem extends SubsystemBase {
 	public void periodic() {
 		// This method will be called once per scheduler run
 	}
-
-	// public void setAngle(int angle){
-	// 	// m_lidar = NetworkTableInstance.getDefault().getDoubleArrayTopic(angle);
-	// }
-
-	public double getDistance(){
-		return m_lidar.get();
+	
+	public double getDistance(int angle){
+		return m_lidar.get()[angle];
 	}
 }
