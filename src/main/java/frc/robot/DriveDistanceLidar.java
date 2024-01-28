@@ -23,13 +23,22 @@ public class DriveDistanceLidar extends Command {
   @Override
   public void execute() {
     
-    LeftSubsystem.get().setBottomMotorSpeed(.6);
+    // LeftSubsystem.get().setBottomMotorSpeed(.6);
+    // DriveSubsystem.get().driveCommand(0.1, 0, 0);
+    if(YDLidarSubsystem.get().getDistance(180)>=.9 && YDLidarSubsystem.get().getDistance(180)<=1.1) {
+      LeftSubsystem.get().setBottomMotorSpeed(0);
+    } else if(YDLidarSubsystem.get().getDistance(180)>1.1) {
+      LeftSubsystem.get().setBottomMotorSpeed(.2);
+    }else if (YDLidarSubsystem.get().getDistance(180)<.9) {
+      LeftSubsystem.get().setBottomMotorSpeed(-.2);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     LeftSubsystem.get().setBottomMotorSpeed(0);
+    // DriveSubsystem.get().driveCommand(0, 0, 0);
   }
 
   // Returns true when the command should end.
@@ -37,6 +46,7 @@ public class DriveDistanceLidar extends Command {
   public boolean isFinished() {
     double distance = YDLidarSubsystem.get().getDistance(180);
     System.out.println(distance);
-    return distance>=1;
+    //return distance>=1;
+    return false;
   }
 }
