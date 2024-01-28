@@ -50,7 +50,6 @@ public class RobotContainer {
 	}
 
 	public Command getAutonomousCommand() {
-		// return new SpinMotor();
 		return new DriveDistanceLidar();
 	}
 
