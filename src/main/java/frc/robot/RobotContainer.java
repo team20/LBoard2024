@@ -42,7 +42,6 @@ public class RobotContainer {
 
 	private void configureButtonBindings() {
 		new Trigger(() -> {
-			System.out.println(m_lidar.get());
 			return m_lidar.get() > 5.0;
 		}).onTrue(new SpinMotor());
 		// m_armSubsystem.setDefaultCommand(
@@ -52,7 +51,7 @@ public class RobotContainer {
 
 	public Command getAutonomousCommand() {
 		// return new SpinMotor();
-		return m_autoChooser.getSelected();
+		return new DriveDistanceLidar();
 	}
 
 }

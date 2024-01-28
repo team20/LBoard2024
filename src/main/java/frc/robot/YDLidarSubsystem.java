@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class YDLidarSubsystem extends SubsystemBase {
 	// NetworkTable m_lidar = NetworkTableInstance.getDefault().getTable("gwjrijgeni");
 	public DoubleArraySubscriber m_lidar = NetworkTableInstance.getDefault().getDoubleArrayTopic("/SmartDashboard/distances").subscribe(new double[360]);
+	public double[] m_distances= new double[360]; 
 	private static YDLidarSubsystem s_subsystem;
 
 	/** Creates a new YDLidarSubsystem. */
@@ -38,9 +39,14 @@ public class YDLidarSubsystem extends SubsystemBase {
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
+		m_distances=m_lidar.get();
 	}
-	
+
+	// public void setAngle(int angle){
+	// 	// m_lidar = NetworkTableInstance.getDefault().getDoubleArrayTopic(angle);
+	// }
+
 	public double getDistance(int angle){
-		return m_lidar.get()[angle];
+		return m_distances[angle];
 	}
 }
