@@ -1,42 +1,48 @@
 #include <Adafruit_NeoPixel.h>
 #include <Wire.h>
-#ifdef __AVR__
-#include <avr/power.h>  // Required for 16 MHz Adafruit Trinket
-#endif
 // Which pin on the Arduino is connected to the NeoPixels?
 // On a Trinket or Gemma we suggest changing this to 1:
-#define UPPER_LED_PIN 5
-#define LOWER_LED_PIN 6
+#define LED_PIN 5
 
 // How many NeoPixels are attached to the Arduino?
 #define LED_COUNT 33
 
 // Declare our NeoPixel strip object:
-Adafruit_NeoPixel upperStrip(LED_COUNT, UPPER_LED_PIN, NEO_BRG + NEO_KHZ800);
-Adafruit_NeoPixel lowerStrip(LED_COUNT, LOWER_LED_PIN, NEO_GRB + NEO_KHZ800);
-
 // Argument 1 = Number of pixels in NeoPixel strip
 // Argument 2 = Arduino pin number (most are valid)
 // Argument 3 = Pixel type flags, add together as needed, refer to Adafruit_NeoPixel.h
-// for additional flags(in the event the LEDs don't display the color you want, you
-// probably need a different bitstream):
-//   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
-//   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
-//   NEO_BRG     Pixels are wired for BRG bitstream (whatever LED Strip 2023 uses)
-//   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
-//   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
-//   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_BRG + NEO_KHZ800);
 
+/*
+ * for additional flags(in the event the LEDs don't display the color you want, you
+ * probably need a different bitstream):
+ * NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
+ * NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
+ * NEO_BRG     Pixels are wired for BRG bitstream (whatever LED Strip 2023 uses)
+ * NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
+ * NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
+ * NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
+ */
+
+// Do not use old bootloader
+
+/**
+ * @brief Shorthand for creating colors in RGB format
+ * @param r Red, 0-255
+ * @param g Green, 0-255
+ * @param b Blue, 0-255
+ * @return The color
+ */
 uint32_t color(int r, int g, int b) {
 	return Adafruit_NeoPixel::Color(r, g, b);
 }
-
 // frame variable, changes from loop
 int colorIndex = 0;
 // pattern led strips are on, read in from master/robot
 int pattern = 0;
-// color of team, default to green
 uint32_t teamColor = color(0, 255, 0);
+uint32_t noteColor = color(255, 77, 0);
+uint32_t offColor = color(0, 0, 0);
 
 /// @brief An array of 6 colors in rainbow order(ROY G BV)
 uint32_t RainbowColor[] = {
@@ -48,17 +54,9 @@ uint32_t RainbowColor[] = {
     color(148, 0, 211)};
 
 void setup() {
-	// These lines are specifically to support the Adafruit Trinket 5V 16 MHz.
-	// Any other board, you can remove this part (but no harm leaving it):
-#if defined(__AVR_ATtiny85__) && (F_CPU == 16000000)
-	clock_prescale_set(clock_div_1);
-#endif
-	// END of Trinket-specific code.
-	upperStrip.begin();
-	lowerStrip.begin();
+	strip.begin();
 
-	upperStrip.setBrightness(10);  // Set BRIGHTNESS to about 1/5 (max = 255)
-	lowerStrip.setBrightness(10);
+	strip.setBrightness(10);  // Set BRIGHTNESS to about 1/5 (max = 255)
 
 	Serial.begin(9600);
 	Wire.begin(0x18);
@@ -72,44 +70,26 @@ void loop() {
 		case 8:         // reset code
 			colorIndex = 0;
 			pattern = -1;
-		case 9:  // blinking yellow
+		case 9:  // blinking orange note color
 			for (int i = 0; i < LED_COUNT; i++) {
-				upperStrip.setPixelColor(i, BlinkingLights(colorIndex, color(245, 149, 24), color(0, 0, 0)));
-				lowerStrip.setPixelColor(i, BlinkingLights(colorIndex, color(245, 149, 24), color(0, 0, 0)));
+				strip.setPixelColor(i, BlinkingLights(colorIndex, noteColor, color(0, 0, 0)));
 			}
 			delay(150);
 			break;
-		case 10:  // blinking purple
+		case 10:
 			for (int i = 0; i < LED_COUNT; i++) {
-				upperStrip.setPixelColor(i, BlinkingLights(colorIndex, color(230, 0, 255), color(0, 0, 0)));
-				lowerStrip.setPixelColor(i, BlinkingLights(colorIndex, color(230, 0, 255), color(0, 0, 0)));
-			}
-			delay(150);
-			break;
-		case 16:
-			for (int i = 0; i < LED_COUNT; i++) {
-				upperStrip.setPixelColor(i, RainbowPartyFunTime(colorIndex, i));
-				lowerStrip.setPixelColor(i, RainbowPartyFunTime(colorIndex, i));
-			}
-			delay(40);
-			break;
-		case 17:
-			for (int i = 0; i < LED_COUNT; i++) {
-				upperStrip.setPixelColor(i, SuperRainbowPartyFunTime(colorIndex));
-				lowerStrip.setPixelColor(i, SuperRainbowPartyFunTime(colorIndex));
+				strip.setPixelColor(i, RainbowPartyFunTime(colorIndex, i));
 			}
 			delay(40);
 			break;
 		default:  // display team color
 			for (int i = 0; i < LED_COUNT; i++) {
-				upperStrip.setPixelColor(i, teamColor);
-				lowerStrip.setPixelColor(i, teamColor);
+				strip.setPixelColor(i, teamColor);
 			}
 			delay(150);
 			break;
 	}
-	upperStrip.show();
-	lowerStrip.show();
+	strip.show();
 	colorIndex++;  // next frame
 }
 
@@ -121,17 +101,16 @@ void receiveEvent(int bytes) {
 void serialEvent() {
 	pattern = Serial.read();
 }
-
-/**
- * @brief Makes LEDs cycle through the colors of the rainbow
- * @param x The number to control the color. Use colorIndex
- * to have the entire strip cycle through the rainbow, or LED number
- * to have the individual LEDs be different colors of the rainbow
- * @return The color
- */
-uint32_t SuperRainbowPartyFunTime(int x) {
-	return RainbowColor[x % 6];
-}
+// /**
+//  * @brief Makes LEDs cycle through the colors of the rainbow
+//  * @param x The number to control the color. Use colorIndex
+//  * to have the entire strip cycle through the rainbow, or LED number
+//  * to have the individual LEDs be different colors of the rainbow
+//  * @return The color
+//  */
+// uint32_t SuperRainbowPartyFunTime(int x) {
+// 	return RainbowColor[x % 6];
+// }
 
 /**
  * @brief Makes the LED strip display all the colors of the rainbow while the rainbow moves
